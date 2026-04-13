@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ───── Domine font ───── */
+@font-face {
+  font-family: 'Domine';
+  src: url('/fonts/Domine-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Domine';
+  src: url('/fonts/Domine-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Domine';
+  src: url('/fonts/Domine-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Domine';
+  src: url('/fonts/Domine-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* ───── Design tokens (match landing page) ───── */
+:root {
+  --bg: #a8c490;
+  --glass: rgba(255,255,255,0.55);
+  --glass-border: rgba(255,255,255,0.35);
+  --green-dark: #1a3a1a;
+  --green-mid: #2d5a27;
+  --green-accent: #4a8c3f;
+  --green-bright: #6abf5e;
+  --text-primary: #1a2e14;
+  --text-secondary: #3a5a30;
+  --text-muted: #5a7a50;
+  --radius: 16px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Domine', 'Inter', serif;
+    color: var(--text-primary);
+    background: var(--bg) url('/bg-texture.jpg') center / cover fixed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fredoka One', cursive;
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.tennis.500');
+    outline-offset: 2px;
+  }
+}
+
+/* ───── Grass-texture heading ───── */
+.grass-heading {
+  font-family: 'Fredoka One', cursive;
+  background: url('/grass-texture.jpg') center / cover;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter:
+    drop-shadow(0px 1px 0px rgba(0,12,0,1))
+    drop-shadow(2px 3px 0px rgba(12,55,12,0.85))
+    drop-shadow(3px 6px 2px rgba(18,70,18,0.50))
+    drop-shadow(5px 10px 8px rgba(0,35,0,0.32))
+    drop-shadow(0px 18px 32px rgba(0,0,0,0.20))
+    drop-shadow(0px 30px 48px rgba(0,0,0,0.08));
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@layer utilities {
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes highlightPulse {
+  0%   { background-color: transparent; }
+  50%  { background-color: rgba(74, 140, 63, 0.12); }
+  100% { background-color: transparent; }
+}
+
+.highlight-pulse {
+  animation: highlightPulse 1s ease-in-out;
+}
