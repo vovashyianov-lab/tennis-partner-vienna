@@ -54,21 +54,6 @@ export function useAuth() {
 
   const signUp = async (userData: Partial<Player> & { password: string }) => {
     try {
-      // Check if email already registered
-      const { data: existingProfiles, error: profileError } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('email', userData.email!);
-
-      if (profileError) {
-        console.error('Error checking existing profiles:', profileError);
-        throw new Error('Error verifying existing profiles');
-      }
-
-      if (existingProfiles && existingProfiles.length > 0) {
-        throw new Error('This email is already registered');
-      }
-
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email: userData.email!,
         password: userData.password,
