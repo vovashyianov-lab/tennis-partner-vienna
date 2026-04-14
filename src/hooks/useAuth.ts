@@ -108,13 +108,14 @@ export function useAuth() {
           .from('profiles')
           .select('*')
           .eq('id', data.user.id)
-          .single();
+          .maybeSingle();
 
-        if (profileError) throw profileError;
+        if (profileError) throw new Error(profileError.message);
+        if (!profile) throw new Error('Profile not found. Please sign up first.');
         return { success: true, user: profile };
       }
 
-      return { success: false, error: 'Login failed' };
+      throw new Error('Login failed — no user returned');
     } catch (error) {
       console.error('Error signing in:', error);
       throw error;
