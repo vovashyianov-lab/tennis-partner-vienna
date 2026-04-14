@@ -98,9 +98,9 @@ export function useAuth() {
           throw new Error('Invalid email or password')
         }
         if (error.message.includes('Email not confirmed')) {
-          throw new Error('Please confirm your email before logging in')
+          throw new Error('Email not confirmed — please check your inbox or contact support')
         }
-        throw error
+        throw new Error(error.message)
       }
 
       if (data.user) {
