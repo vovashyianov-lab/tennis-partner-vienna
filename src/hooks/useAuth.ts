@@ -73,27 +73,9 @@ export function useAuth() {
       if (authError) throw authError;
 
       if (authData.user) {
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .upsert([{
-            id: authData.user.id,
-            email: userData.email,
-            name: userData.name || '',
-            phone: userData.phone || '',
-            skill_level: userData.skill_level || null,
-            district: userData.district || null,
-            play_style: userData.play_style || 'both',
-            gender: userData.gender || 'other',
-            avatar: userData.avatar || null,
-            bio: userData.bio || '',
-            whatsapp_consent: userData.whatsapp_consent || false,
-          }], { onConflict: 'id' });
-
-        if (profileError) {
-          console.error('Profile creation error:', profileError);
-          throw new Error('Error creating user profile');
-        }
-
+        // Profile is created automatically by the database trigger (handle_new_user).
+        // Wait briefly for the trigger to complete, then fetch the profile.
+        await new Promise(r => setTimeout(r, 800));
         await fetchUser(authData.user.id);
         return authData.user;
       }
